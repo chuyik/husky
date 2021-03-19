@@ -9,6 +9,12 @@ command_exists () {
 }
 
 run_command () {
+  if [ -f "$HOME"/.node_path ]; then
+    . "$HOME"/.node_path
+  else
+    . "$baseDir/run-node.sh" -c
+  fi
+
   if command_exists "$1"; then
     "$@" husky-run $hookName $gitParams
 
@@ -41,6 +47,7 @@ hookIsDefined () {
 huskyVersion="0.0.0"
 gitParams="$*"
 hookName="$(basename "$0")"
+baseDir=$(dirname "$0")
 
 debug "husky v$huskyVersion - $hookName"
 
@@ -51,7 +58,7 @@ if [ "$HUSKY_SKIP_HOOKS" = "true" ] || [ "$HUSKY_SKIP_HOOKS" = "1" ]; then
 fi
 
 # Source user var and change directory
-. "$(dirname "$0")/husky.local.sh"
+. "$baseDir/husky.local.sh"
 debug "Current working directory is $(pwd)"
 
 # Skip fast if hookName is not defined

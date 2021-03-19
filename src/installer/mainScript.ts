@@ -15,6 +15,10 @@ export function getMainScript(): string {
 
 export function createMainScript(gitHooksDir: string): void {
   fs.writeFileSync(path.join(gitHooksDir, 'husky.sh'), getMainScript(), 'utf-8')
+  fs.copyFileSync(
+    path.join(__dirname, '../../sh/run-node.sh'),
+    path.join(gitHooksDir, 'run-node.sh')
+  )
 }
 
 export function removeMainScript(gitHooksDir: string): void {
