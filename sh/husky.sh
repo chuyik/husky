@@ -31,7 +31,7 @@ run_command () {
   else
     echo "Can't find $1 in PATH: $PATH"
     echo "Skipping $hookName hook"
-    exit 0
+    exit 1
   fi
 }
 
