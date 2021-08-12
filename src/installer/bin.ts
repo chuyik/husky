@@ -30,8 +30,9 @@ function getDirs(
   debug(`  --show-prefix: ${prefix}`)
 
   const absoluteGitCommonDir = path.resolve(cwd, gitCommonDir)
-  // Prefix can be an empty string
-  const relativeUserPkgDir = prefix || '.'
+
+  // fix issue: https://github.com/typicode/husky/issues/677
+  const relativeUserPkgDir = '.'
 
   return { relativeUserPkgDir, absoluteGitCommonDir }
 }
