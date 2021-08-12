@@ -4,7 +4,7 @@ exports[`hookScript should match snapshot 1`] = `
 "#!/bin/sh
 # husky
 
-# Created by Husky v4.3.8 (https://github.com/typicode/husky#readme)
+# Created by Husky v4.3.9 (https://github.com/typicode/husky#readme)
 #   At: <locale date string>
 #   From: /home/typicode/projects/foo-package (https://github.com/foo/foo-package)
 
@@ -13,7 +13,7 @@ exports[`hookScript should match snapshot 1`] = `
 `;
 
 exports[`localScript should match snapshot 1`] = `
-"# Created by Husky v4.3.8 (https://github.com/typicode/husky#readme)
+"# Created by Husky v4.3.9 (https://github.com/typicode/husky#readme)
 #   At: <locale date string>
 #   From: /home/typicode/projects/foo-package (https://github.com/foo/foo-package)
 
@@ -23,7 +23,7 @@ cd \\".\\"
 `;
 
 exports[`mainScript should match snapshot 1`] = `
-"# Created by Husky v4.3.8 (https://github.com/typicode/husky#readme)
+"# Created by Husky v4.3.9 (https://github.com/typicode/husky#readme)
 #   At: <locale date string>
 #   From: /home/typicode/projects/foo-package (https://github.com/foo/foo-package)
 
@@ -38,6 +38,12 @@ command_exists () {
 }
 
 run_command () {
+  if [ -f \\"$HOME\\"/.node_path ]; then
+    . \\"$HOME\\"/.node_path
+  else
+    . \\"$baseDir/run-node.sh\\" -c
+  fi
+
   if command_exists \\"$1\\"; then
     \\"$@\\" husky-run $hookName $gitParams
 
@@ -54,7 +60,7 @@ run_command () {
   else
     echo \\"Can't find $1 in PATH: $PATH\\"
     echo \\"Skipping $hookName hook\\"
-    exit 0
+    exit 1
   fi
 }
 
@@ -67,9 +73,10 @@ hookIsDefined () {
     .huskyrc.yml
 }
 
-huskyVersion=\\"4.3.8\\"
+huskyVersion=\\"4.3.9\\"
 gitParams=\\"$*\\"
 hookName=\\"$(basename \\"$0\\")\\"
+baseDir=$(dirname \\"$0\\")
 
 debug \\"husky v$huskyVersion - $hookName\\"
 
@@ -80,7 +87,7 @@ if [ \\"$HUSKY_SKIP_HOOKS\\" = \\"true\\" ] || [ \\"$HUSKY_SKIP_HOOKS\\" = \\"1\
 fi
 
 # Source user var and change directory
-. \\"$(dirname \\"$0\\")/husky.local.sh\\"
+. \\"$baseDir/husky.local.sh\\"
 debug \\"Current working directory is $(pwd)\\"
 
 # Skip fast if hookName is not defined
