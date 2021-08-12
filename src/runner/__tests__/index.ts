@@ -47,9 +47,7 @@ describe('run', (): void => {
     expect(status).toBe(0)
   })
 
-  it('should return 0 status if no hooks are defined', async (): Promise<
-    void
-  > => {
+  it('should return 0 status if no hooks are defined', async (): Promise<void> => {
     const dir = tempy.directory()
 
     fs.writeFileSync(
@@ -64,9 +62,7 @@ describe('run', (): void => {
     expect(status).toBe(0)
   })
 
-  it('should return 1 status if the command is not found in PATH', async (): Promise<
-    void
-  > => {
+  it('should return 1 status if the command is not found in PATH', async (): Promise<void> => {
     const dir = tempy.directory()
 
     fs.writeFileSync(
@@ -84,9 +80,7 @@ describe('run', (): void => {
     expect(status).toBe(1)
   })
 
-  it('should run failing command and return 1 status', async (): Promise<
-    void
-  > => {
+  it('should run failing command and return 1 status', async (): Promise<void> => {
     const dir = tempy.directory()
 
     fs.writeFileSync(
@@ -105,9 +99,7 @@ describe('run', (): void => {
     expect(status).toBe(2)
   })
 
-  it('should support old scripts but show a deprecated message', async (): Promise<
-    void
-  > => {
+  it('should support old scripts but show a deprecated message', async (): Promise<void> => {
     const dir = tempy.directory()
 
     fs.writeFileSync(

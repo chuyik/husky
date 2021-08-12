@@ -20,9 +20,10 @@ function checkSkipInstallEnv(): void {
   }
 }
 
-function getDirs(
-  cwd: string
-): { absoluteGitCommonDir: string; relativeUserPkgDir: string } {
+function getDirs(cwd: string): {
+  absoluteGitCommonDir: string
+  relativeUserPkgDir: string
+} {
   const { prefix, gitCommonDir } = gitRevParse(cwd)
 
   debug('Git rev-parse command returned:')
